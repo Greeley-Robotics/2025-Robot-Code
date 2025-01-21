@@ -63,9 +63,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    new JoystickButton(m_driverController, 1)
+    new JoystickButton(m_driverController, 5)
                       .whileTrue(new IntakeCommand(m_intake));
-    new JoystickButton(m_driverController, 2)
+    new JoystickButton(m_driverController, 6)
                       .whileTrue(new ReverseIntakeCommand(m_intake));
   }
 
