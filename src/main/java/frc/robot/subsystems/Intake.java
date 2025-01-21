@@ -15,14 +15,18 @@ import frc.robot.commands.autonomous.AutoIntake;
 
 public class Intake extends SubsystemBase {
     private final PWMSparkMax intakeMotor;
+    private boolean isOn;
+    private double temperature;
 
     private final GenericEntry nt_IntakeMotorSpeed;
 
     public Intake() {
         intakeMotor = new PWMSparkMax(IntakeConstants.kIntakeMotorPort);
+        isOn = false;
 
         ShuffleboardTab tab = Shuffleboard.getTab("Intake");
         nt_IntakeMotorSpeed = tab.add("Intake Motor Speed", 0).getEntry();
+        intakeMotor.setSafetyEnabled(true);
     }
 
     @Override
@@ -34,14 +38,26 @@ public class Intake extends SubsystemBase {
 
     public void runIntake() {
         intakeMotor.set(IntakeConstants.kIntakeMotorSpeed);
+        isOn = !isOn;
     }
 
+    /**
+     * Should not be called unless necessary
+     */
     public void reverseIntake() {
         intakeMotor.set(-IntakeConstants.kIntakeMotorSpeed); 
     }
 
+    /**
+     * Should be configured on the controllo
+     */
     public void stopIntake() {
         intakeMotor.set(0.0); 
+        isOn = !isOn;
+    }
+
+    public void kill() {
+
     }
 
     public Command autoIntakeCommand() {

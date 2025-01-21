@@ -34,6 +34,10 @@ public class Robot extends TimedRobot {
           private RobotContainer m_robotContainer;
         
   public Robot() {
+    leftLeader.setSafetyEnabled(true);
+    leftFollower.setSafetyEnabled(true);
+    rightLeader.setSafetyEnabled(true);
+    rightFollower.setSafetyEnabled(true);
     
   }
     
