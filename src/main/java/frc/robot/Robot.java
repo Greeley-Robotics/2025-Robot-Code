@@ -4,12 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.DrivetrainConstants;
+
+import com.kauailabs.navx.frc.AHRS;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,6 +21,8 @@ import frc.robot.Constants.DrivetrainConstants;
  * project.
  */
 public class Robot extends TimedRobot {
+    private final AHRS ahrs = new AHRS(SPI.Port.kMXP);
+
   /*
    * Initialize the motors for the Differential Drivetrain within the Robots Class
    */
@@ -66,6 +71,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     
+    System.out.println(String.format("[i] navX Connected: %s", ahrs.isConnected()));
+
     m_robotContainer = new RobotContainer();
 
     /*
