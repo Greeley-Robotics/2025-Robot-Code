@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 # Orbotics 10152 - 2025 Robotics Code
 
 ## Overview
 This repository contains the codebase for the 2025 rookie year of Orbotics FRC Team 10152, competing in the FIRST Robotics Competition. 
-=======
-# Greeley Robotics - 2024 Robotics Code
-
-## Overview
-This repository contains the codebase for the 2024 gap year of Greeley Robotics, competing in the FIRST Robotics Competition. 
->>>>>>> 3f872bb (Create README.md)
 
 ## Table of Contents
 1. [Setup](#setup)
