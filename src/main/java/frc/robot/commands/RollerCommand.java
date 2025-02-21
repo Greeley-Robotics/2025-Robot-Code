@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.RollerSubsystem;
+import frc.robot.subsystems.PWMRollerSubsystem;
 import java.util.function.DoubleSupplier;
 
 // Command to run the roller with joystick inputs
@@ -13,10 +13,10 @@ public class RollerCommand extends Command {
   private final DoubleSupplier forward;
   private final DoubleSupplier reverse;
   // private final CANRollerSubsystem rollerSubsystem;
-  private final RollerSubsystem rollerSubsystem;
+  private final PWMRollerSubsystem rollerSubsystem;
 
   public RollerCommand(
-      DoubleSupplier forward, DoubleSupplier reverse, RollerSubsystem rollerSubsystem) {
+      DoubleSupplier forward, DoubleSupplier reverse, PWMRollerSubsystem rollerSubsystem) {
     this.forward = forward;
     this.reverse = reverse;
     this.rollerSubsystem = rollerSubsystem;
