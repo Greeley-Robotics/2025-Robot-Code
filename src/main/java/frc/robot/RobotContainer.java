@@ -13,8 +13,8 @@ import frc.robot.Constants.RollerConstants;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.RollerCommand;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.RollerSubsystem;
+import frc.robot.subsystems.PWMDriveSubsystem;
+import frc.robot.subsystems.PWMRollerSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -27,8 +27,8 @@ import frc.robot.subsystems.RollerSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final RollerSubsystem rollerSubsystem = new RollerSubsystem();
+  private final PWMDriveSubsystem driveSubsystem = new PWMDriveSubsystem();
+  private final PWMRollerSubsystem rollerSubsystem = new PWMRollerSubsystem();
 
   // The driver's controller
   private final CommandXboxController driverController = new CommandXboxController(
