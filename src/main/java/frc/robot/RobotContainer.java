@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -41,6 +42,11 @@ public class RobotContainer {
   // The autonomous chooser
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
+  // Define different auto modes
+  private final Command leftAuto = new AutoCommand(driveSubsystem, "Left");
+  private final Command centerAuto = new AutoCommand(driveSubsystem, "Center");
+  private final Command rightAuto = new AutoCommand(driveSubsystem, "Right");
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -48,10 +54,18 @@ public class RobotContainer {
     // Set up command bindings
     configureBindings();
 
-    // Set the options to show up in the Dashboard for selecting auto modes. If you
-    // add additional auto modes you can add additional lines here with
-    // autoChooser.addOption
-    autoChooser.setDefaultOption("Autonomous", new AutoCommand(driveSubsystem));
+    // // Set the options to show up in the Dashboard for selecting auto modes. If you
+    // // add additional auto modes you can add additional lines here with
+    // // autoChooser.addOption
+    // autoChooser.setDefaultOption("Autonomous", new AutoCommand(driveSubsystem));
+
+    // Add autonomous options for different starting positions
+    autoChooser.setDefaultOption("Center Start", centerAuto);
+    autoChooser.addOption("Left Start", leftAuto);
+    autoChooser.addOption("Right Start", rightAuto);
+
+    // Put chooser on the dashboard
+    SmartDashboard.putData("Autonomous Mode", autoChooser);
   }
 
   /**
