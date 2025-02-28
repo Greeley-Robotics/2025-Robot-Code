@@ -44,7 +44,8 @@ public class RobotContainer {
 
   // Define different auto modes
   private final Command leftAuto = new AutoCommand(driveSubsystem, "Left");
-  private final Command centerAuto = new AutoCommand(driveSubsystem, "Center");
+  private final Command centerLeftAuto = new AutoCommand(driveSubsystem, "Center Left");
+  private final Command centerRightAuto = new AutoCommand(driveSubsystem, "Center Right");
   private final Command rightAuto = new AutoCommand(driveSubsystem, "Right");
 
   /**
@@ -60,7 +61,8 @@ public class RobotContainer {
     // autoChooser.setDefaultOption("Autonomous", new AutoCommand(driveSubsystem));
 
     // Add autonomous options for different starting positions
-    autoChooser.setDefaultOption("Center Start", centerAuto);
+    autoChooser.setDefaultOption("Center Left", centerLeftAuto);
+    autoChooser.addOption("Center Right", centerRightAuto);
     autoChooser.addOption("Left Start", leftAuto);
     autoChooser.addOption("Right Start", rightAuto);
 
