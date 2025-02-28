@@ -44,8 +44,11 @@ public class AutoCommand extends Command {
       case "Right":
         runRightAuto();
         break;
-      default:
-        runCenterAuto();
+      case "Center Left":
+        runCenterLeftAuto();
+        break;
+      case "Center Right":
+        runCenterRightAuto();
         break;
     }
   }
@@ -87,8 +90,10 @@ public class AutoCommand extends Command {
     driveSubsystem.stop(); // Stop movement
   }
 
+
+  // CenterLeft or CenterRight depends on strength of aliance member to the left or right of us
   // Runs autonomous routine for Center Start position
-  private void runCenterAuto() {
+  private void runCenterLeftAuto() {
     System.out.println("Running Center Start Auto!");
     seconds = 2.0;
     driveSubsystem.driveForward(0.5);
@@ -96,6 +101,19 @@ public class AutoCommand extends Command {
 
     driveSubsystem.stop(); 
   }
+
+  // Runs autonomous routine for Center Start position
+  private void runCenterRightAuto() {
+    System.out.println("Running Center Start Auto!");
+    seconds = 2.0;
+    driveSubsystem.driveForward(0.5);
+    Timer.delay(2.0); 
+
+    // Invert rotation
+
+    driveSubsystem.stop(); 
+  }
+
 
   // Runs autonomous routine for Right Start position
   private void runRightAuto() {
