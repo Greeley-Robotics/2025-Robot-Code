@@ -53,15 +53,14 @@ public class AutoCommand extends Command {
   // Runs every cycle while the command is scheduled (~50 times per second)
   @Override
   public void execute() {
-    // Drive at 1/2 speed
-    driveSubsystem.driveArcade(0.5, 0.0);
+    // Nothing here - movement is handled in the selected auto function
   }
 
   // Runs each time the command ends via isFinished or being interrupted.
   @Override
   public void end(boolean isInterrupted) {
     // Stop drive motors
-    driveSubsystem.driveArcade(0.0, 0.0);
+    driveSubsystem.stop();
     System.out.println("Auto Finished: " + startPosition);
   }
 
@@ -77,18 +76,38 @@ public class AutoCommand extends Command {
   // Runs autonomous routine for Left Start position
   private void runLeftAuto() {
     System.out.println("Running Left Start Auto!");
-    seconds = 2.0; // Example: Drive for 2 seconds
+    seconds = 2.0; // Drive forward for 2 seconds
+    driveSubsystem.driveForward(0.5); // Move forward at 50% speed
+    Timer.delay(2.0); // Wait for 2 seconds
+
+    System.out.println("Turning left...");
+    driveSubsystem.rotate(-0.5); // Rotate left
+    Timer.delay(1.0); // Rotate for 1 second
+
+    driveSubsystem.stop(); // Stop movement
   }
 
   // Runs autonomous routine for Center Start position
   private void runCenterAuto() {
     System.out.println("Running Center Start Auto!");
-    seconds = 2.0; 
+    seconds = 2.0;
+    driveSubsystem.driveForward(0.5);
+    Timer.delay(2.0); 
+
+    driveSubsystem.stop(); 
   }
 
   // Runs autonomous routine for Right Start position
   private void runRightAuto() {
     System.out.println("Running Right Start Auto!");
     seconds = 2.0; 
+    driveSubsystem.driveForward(0.5); 
+    Timer.delay(2.0);
+
+    System.out.println("Turning right...");
+    driveSubsystem.rotate(0.5); 
+    Timer.delay(1.0); 
+
+    driveSubsystem.stop(); 
   }
 }
