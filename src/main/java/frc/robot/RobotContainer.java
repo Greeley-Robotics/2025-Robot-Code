@@ -40,13 +40,13 @@ public class RobotContainer {
       OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // The autonomous chooser
-  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+  private final SendableChooser<String> autoChooser = new SendableChooser<>();
 
   // Define different auto modes
-  private final Command leftAuto = new AutoCommand(driveSubsystem, "Left");
-  private final Command centerLeftAuto = new AutoCommand(driveSubsystem, "Center Left");
-  private final Command centerRightAuto = new AutoCommand(driveSubsystem, "Center Right");
-  private final Command rightAuto = new AutoCommand(driveSubsystem, "Right");
+  // private final Command leftAuto = new AutoCommand(driveSubsystem, rollerSubsystem, "Left");
+  // private final Command centerLeftAuto = new AutoCommand(driveSubsystem, rollerSubsystem, "Center Left");
+  // private final Command centerRightAuto = new AutoCommand(driveSubsystem, rollerSubsystem, "Center Right");
+  // private final Command rightAuto = new AutoCommand(driveSubsystem, rollerSubsystem, "Right");
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -61,11 +61,10 @@ public class RobotContainer {
     // autoChooser.setDefaultOption("Autonomous", new AutoCommand(driveSubsystem));
 
     // Add autonomous options for different starting positions
-    autoChooser.setDefaultOption("Center Left", centerLeftAuto);
-    autoChooser.addOption("Center Right", centerRightAuto);
-    autoChooser.addOption("Left Start", leftAuto);
-    autoChooser.addOption("Right Start", rightAuto);
-
+    autoChooser.setDefaultOption("Center Left Start", "Center Left");
+    autoChooser.addOption("Left Start", "Left");
+    autoChooser.addOption("Right Start", "Right");
+    autoChooser.addOption("Center Right Start", "Center Right");
     // Put chooser on the dashboard
     SmartDashboard.putData("Autonomous Mode", autoChooser);
   }
@@ -120,6 +119,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoChooser.getSelected();
+    return AutoCommand.getRoutine(driveSubsystem, rollerSubsystem, autoChooser.getSelected());
   }
 }
