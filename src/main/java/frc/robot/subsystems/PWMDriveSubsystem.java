@@ -47,4 +47,19 @@ public class PWMDriveSubsystem extends SubsystemBase {
   public void driveArcade(double xSpeed, double zRotation) {
     drive.arcadeDrive(xSpeed, zRotation);
   }
+
+  // Drives the robot forward at a given speed
+  public void driveForward(double speed) {
+    drive.arcadeDrive(speed, 0.0);
+  }
+
+  // Rotates the robot in place at a given speed
+  public void rotate(double rotationSpeed) {
+    drive.arcadeDrive(0.0, rotationSpeed);
+  }
+
+  // Stops the robot completely
+  public void stop() {
+    drive.arcadeDrive(0.0, 0.0);
+  }
 }
