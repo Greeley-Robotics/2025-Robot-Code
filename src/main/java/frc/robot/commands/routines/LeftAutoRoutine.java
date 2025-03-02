@@ -5,12 +5,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PWMDriveSubsystem;
 import frc.robot.subsystems.PWMRollerSubsystem;
 
-// Command for Left Start Autonomous
 public class LeftAutoRoutine extends Command {
   private final PWMDriveSubsystem driveSubsystem;
   private final PWMRollerSubsystem rollerSubsystem;
   private final Timer timer = new Timer();
-  private boolean finished = false;
+  private int step = 0;
 
   public LeftAutoRoutine(PWMDriveSubsystem driveSubsystem, PWMRollerSubsystem rollerSubsystem) {
     this.driveSubsystem = driveSubsystem;
@@ -20,32 +19,64 @@ public class LeftAutoRoutine extends Command {
 
   @Override
   public void initialize() {
-    System.out.println("Running Left Start Auto!");
-    timer.restart();
-    finished = false;
+    System.out.println("Running Left Auto!");
+    timer.reset();
+    timer.start();
+    step = 0;
+  }
 
-    // Step 1: Drive forward for 2 seconds
-    driveSubsystem.driveForward(0.5);
-    Timer.delay(2.0);
-    driveSubsystem.stop();
+  @Override
+  public void execute() {
+    switch (step) {
+      case 0: // Drive forward 100 inches
+        driveSubsystem.driveForward(0.5);
+        if (timer.get() > 3.0) { 
+          step++;  
+          timer.reset(); 
+        } 
+        break;
 
-    // Step 2: Activate roller for 1.5 seconds
-    System.out.println("Activating rollers...");
-    rollerSubsystem.runRoller(0.7, 0.0);
-    Timer.delay(1.5);
-    rollerSubsystem.runRoller(0.0, 0.0);
+      case 1: // Rotate 45° counter-clockwise
+        driveSubsystem.rotate(-0.5);
+        if (timer.get() > 1.0) { 
+          step++;  
+          timer.reset(); 
+        } 
+        break;
 
-    // Step 3: Rotate left
-    System.out.println("Turning left...");
-    driveSubsystem.rotate(-0.5);
-    Timer.delay(1.0);
-    driveSubsystem.stop();
+      case 2: // Drive forward 10.375 inches
+        driveSubsystem.driveForward(0.5);
+        if (timer.get() > 0.5) { 
+          step++;  
+          timer.reset(); 
+        } 
+        break;
 
-    finished = true;
+      case 3: // Roller Outtake
+        System.out.println("Running Roller Outtake...");
+        rollerSubsystem.runRoller(0.7, 0.0);
+        if (timer.get() > 1.5) { 
+          step++;  
+          timer.reset(); 
+        } 
+        break;
+
+      default:
+        driveSubsystem.stop();
+        rollerSubsystem.runRoller(0.0, 0.0);
+        break;
+    }
   }
 
   @Override
   public boolean isFinished() {
-    return finished;
+    return step > 3;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    driveSubsystem.stop();
+    rollerSubsystem.runRoller(0.0, 0.0);
+    System.out.println("Left Auto Finished");
   }
 }

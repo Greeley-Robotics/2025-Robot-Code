@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PWMDriveSubsystem;
 import frc.robot.subsystems.PWMRollerSubsystem;
 
-public class RightAutoRoutine extends Command {
+public class CenterAutoRoutine extends Command {
   private final PWMDriveSubsystem driveSubsystem;
   private final PWMRollerSubsystem rollerSubsystem;
   private final Timer timer = new Timer();
   private int step = 0;
 
-  public RightAutoRoutine(PWMDriveSubsystem driveSubsystem, PWMRollerSubsystem rollerSubsystem) {
+  public CenterAutoRoutine(PWMDriveSubsystem driveSubsystem, PWMRollerSubsystem rollerSubsystem) {
     this.driveSubsystem = driveSubsystem;
     this.rollerSubsystem = rollerSubsystem;
     addRequirements(driveSubsystem, rollerSubsystem);
@@ -19,7 +19,7 @@ public class RightAutoRoutine extends Command {
 
   @Override
   public void initialize() {
-    System.out.println("Running Right Auto!");
+    System.out.println("Running Center Auto!");
     timer.reset();
     timer.start();
     step = 0;
@@ -28,31 +28,15 @@ public class RightAutoRoutine extends Command {
   @Override
   public void execute() {
     switch (step) {
-      case 0: // Drive forward 100 inches
+      case 0: // Drive forward 74 inches
         driveSubsystem.driveForward(0.5);
-        if (timer.get() > 3.0) { 
+        if (timer.get() > 2.5) { 
           step++;  
           timer.reset(); 
         } 
         break;
 
-      case 1: // Rotate 45° clockwise
-        driveSubsystem.rotate(0.5);
-        if (timer.get() > 1.0) { 
-          step++;  
-          timer.reset(); 
-        } 
-        break;
-
-      case 2: // Drive forward 10.375 inches
-        driveSubsystem.driveForward(0.5);
-        if (timer.get() > 0.5) { 
-          step++;  
-          timer.reset(); 
-        } 
-        break;
-
-      case 3: // Roller Outtake
+      case 1: // Roller Outtake
         System.out.println("Running Roller Outtake...");
         rollerSubsystem.runRoller(0.7, 0.0);
         if (timer.get() > 1.5) { 
@@ -70,13 +54,13 @@ public class RightAutoRoutine extends Command {
 
   @Override
   public boolean isFinished() {
-    return step > 3;
+    return step > 1;
   }
 
   @Override
   public void end(boolean interrupted) {
     driveSubsystem.stop();
     rollerSubsystem.runRoller(0.0, 0.0);
-    System.out.println("Right Auto Finished");
+    System.out.println("Center Auto Finished");
   }
 }
