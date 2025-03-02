@@ -18,13 +18,11 @@ public class AutoCommand {
         return new LeftAutoRoutine(driveSubsystem, rollerSubsystem);
       case "Right":
         return new RightAutoRoutine(driveSubsystem, rollerSubsystem);
-      case "Center Left":
-        return new CenterLeftAutoRoutine(driveSubsystem, rollerSubsystem);
-      case "Center Right":
-        return new CenterRightAutoRoutine(driveSubsystem, rollerSubsystem);
+      case "Center":
+        return new CenterAutoRoutine(driveSubsystem, rollerSubsystem);
       default:
         System.out.println("Invalid Auto Routine Selected! Defaulting to Center Left.");
-        return new CenterLeftAutoRoutine(driveSubsystem, rollerSubsystem);
+        return new CenterAutoRoutine(driveSubsystem, rollerSubsystem);
     }
   }
 }
